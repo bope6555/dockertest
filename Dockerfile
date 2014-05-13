@@ -9,7 +9,7 @@
 # -Chrome
 #################################################
 
-stackbrew/ubuntu:12.04
+FROM stackbrew/ubuntu:12.04
 MAINTAINER BPetkov
 
 # Update the repository sources list
