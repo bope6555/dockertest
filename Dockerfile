@@ -9,21 +9,30 @@
 # -Chrome
 #################################################
 
-FROM ubuntu-upstart:12.04
-MAINTAINER BPetkov
+
+FROM stackbrew/ubuntu:12.04 #or use ubuntu-upstart:12.04
+MAINTAINER BPetkov  
 
 # Update the repository sources list
-RUN apt-get update -qq
+RUN apt-get update -qq 
 
 # Mysql
 RUN apt-get install -y mysql-server-5.5  
 ADD my.cnf /etc/mysql/conf.d/my.cnf 
 RUN chmod 664 /etc/mysql/conf.d/my.cnf 
 ADD run /usr/local/bin/run 
-RUN chmod +x /usr/local/bin/run 
-VOLUME ["/var/lib/mysql"]
-EXPOSE 3306
-CMD ["/usr/local/bin/run"]
+RUN chmod +x /usr/local/bin/run  
+
+# Other stuff
+RUN apt-get -y install rabbitmq
+RUN apt-get -y install nodejs
+[...]
+VOLUME ["/var/lib/mysql"] 
+EXPOSE 3306 
+EXPOSE .......
+CMD ["/sbin/init"]
+
+
 
 
 # RabbitMQ
