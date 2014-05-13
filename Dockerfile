@@ -54,7 +54,7 @@ RUN rabbitmq-plugins enable rabbitmq_management
 RUN chmod 755 ./*.sh
 
 EXPOSE 5672 15672
-CMD ["/run.sh"]
+#CMD ["/run.sh"]
 
 
 
