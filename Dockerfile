@@ -13,7 +13,7 @@ FROM stackbrew/ubuntu:12.04
 MAINTAINER BPetkov
 
 # Update the repository sources list
-RUN apt-get update
+#RUN apt-get update
 
 # My SQL Server
 ###############
