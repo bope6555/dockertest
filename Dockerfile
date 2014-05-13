@@ -25,11 +25,6 @@ RUN apt-get install -y mysql-server-5.5
 #ADD run /usr/local/bin/run 
 #RUN chmod +x /usrr/local/bin/run  
 
-ADD my.cnf /etc/mysql/conf.d/
-RUN chmod 664 /etc/mysql/conf.d/my.cnf
-ADD run /usr/local/bin/run
-RUN chmod +x /usr/local/bin/run
-
 # Other stuff
 #RUN apt-get -y install rabbitmq
 #RUN apt-get -y install nodejs
