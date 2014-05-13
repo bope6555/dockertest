@@ -17,7 +17,7 @@ RUN apt-get update
 
 # My SQL Server
 ###############
-Run apt-get install mysql-server
+RUN apt-get install mysql-server
 RUN /bin/rm -rf /var/lib/mysql/*
 
 ADD initialize_andstart_mysql /user/sbin/initialize_and_start_mysql
