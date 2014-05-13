@@ -30,7 +30,7 @@ RUN apt-get install -y mysql-server-5.5
 #[...]
 VOLUME ["/var/lib/mysql"] 
 EXPOSE 3306 
-EXPOSE .......
+#EXPOSE .......
 CMD ["/sbin/init"]
 
 
