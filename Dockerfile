@@ -17,12 +17,18 @@ MAINTAINER BPetkov
 # Update the repository sources list
 RUN apt-get update -qq 
 
+
 # Mysql
 RUN apt-get install -y mysql-server-5.5  
 #ADD my.cnf /etc/mysql/conf.d/my.cnf 
 #RUN chmod 664 /etc/mysql/conf.d/my.cnf 
 #ADD run /usr/local/bin/run 
 #RUN chmod +x /usrr/local/bin/run  
+
+ADD my.cnf /etc/mysql/conf.d/my.cnf
+RUN chmod 664 /etc/mysql/conf.d/my.cnf
+ADD run /usr/local/bin/run
+RUN chmod +x /usr/local/bin/run
 
 # Other stuff
 #RUN apt-get -y install rabbitmq
