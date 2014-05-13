@@ -9,7 +9,7 @@
 # -Chrome
 #################################################
 
-FROM ubuntu
+FROM orchardup/mysql
 MAINTAINER BPetkov
 
 # Update the repository sources list
@@ -17,14 +17,17 @@ RUN apt-get update
 
 # My SQL Server
 ###############
-RUN apt-get install mysql-server
-RUN /bin/rm -rf /var/lib/mysql/*
+RUN apt-get update -qq && apt-get install -y mysql-server-5.5
 
-ADD initialize_andstart_mysql /user/sbin/initialize_and_start_mysql
-ADD listen_on_all_addresses.cnf /etc/conf.d/listen_on_all_addresses.cnf
+ADD my.cnf /etc/mysql/conf.d/my.cnf
+RUN chmod 664 /etc/mysql/conf.d/my.cnf
+ADD run /usr/local/bin/run
+RUN chmod +x /usr/local/bin/run
 
+VOLUME ["/var/lib/mysql"]
 EXPOSE 3306
-CMD[ "/usr/sbin/initialize_and_start_mysql"]
+CMD ["/usr/local/bin/run"]
+
 
 # RabbitMQ
 #############
