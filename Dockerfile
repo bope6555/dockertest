@@ -25,9 +25,9 @@ RUN apt-get install -y mysql-server-5.5
 #RUN chmod +x /usrr/local/bin/run  
 
 # Other stuff
-RUN apt-get -y install rabbitmq
-RUN apt-get -y install nodejs
-[...]
+#RUN apt-get -y install rabbitmq
+#RUN apt-get -y install nodejs
+#[...]
 VOLUME ["/var/lib/mysql"] 
 EXPOSE 3306 
 EXPOSE .......
