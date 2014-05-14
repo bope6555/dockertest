@@ -19,7 +19,7 @@ RUN apt-get update -qq
 
 
 # Mysql
-RUN apt-get install -y mysql-server-5.5  
+#RUN apt-get install -y mysql-server-5.5  
 #ADD my.cnf /etc/mysql/conf.d/my.cnf 
 #RUN chmod 664 /etc/mysql/conf.d/my.cnf 
 #ADD run /usr/local/bin/run 
@@ -29,10 +29,10 @@ RUN apt-get install -y mysql-server-5.5
 #RUN apt-get -y install rabbitmq
 #RUN apt-get -y install nodejs
 #[...]
-VOLUME ["/var/lib/mysql"] 
-EXPOSE 3306 
+#VOLUME ["/var/lib/mysql"] 
+#EXPOSE 3306 
 #EXPOSE .......
-CMD ["/sbin/init"]
+#CMD ["/sbin/init"]
 
 
 
@@ -87,6 +87,24 @@ EXPOSE 5672 15672
 #RUN ln -s proc/selc/mounts /etc/mtab
 
 
+#JAVA8
+###########
+FROM    stackbrew/ubuntu:12.04
+
+RUN sed -i.bak 's/main$/main universe/' /etc/apt/sources.list
+RUN apt-get update
+RUN dpkg-divert --local --rename --add /sbin/initctl
+RUN apt-get update && apt-get -y install python-software-properties wget curl
+RUN add-apt-repository ppa:webupd8team/java
+RUN apt-get update
+RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
+RUN apt-get -y install oracle-java8-installer && apt-get clean
+RUN update-alternatives --display java
+RUN echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> /etc/environment
+RUN echo '# /lib/init/fstab: cleared out for bare-bones lxc' > /lib/init/fstab
+RUN ln -sf /proc/self/mounts /etc/mtab
+
+
 FROM stackbrew/ubuntu:saucy
 
 RUN apt-get -y update
@@ -111,19 +129,3 @@ RUN chgrp chromeuser /home/chromeuser/chrome
 EXPOSE 4444 5999
 CMD ["sh", "/home/root/scripts/start.sh"]
 
-#JAVA8
-###########
-FROM    stackbrew/ubuntu:12.04
-
-RUN sed -i.bak 's/main$/main universe/' /etc/apt/sources.list
-RUN apt-get update
-RUN dpkg-divert --local --rename --add /sbin/initctl
-RUN apt-get update && apt-get -y install python-software-properties wget curl
-RUN add-apt-repository ppa:webupd8team/java
-RUN apt-get update
-RUN echo oracle-java8-installer shared/accepted-oracle-license-v1-1 select true | /usr/bin/debconf-set-selections
-RUN apt-get -y install oracle-java8-installer && apt-get clean
-RUN update-alternatives --display java
-RUN echo "JAVA_HOME=/usr/lib/jvm/java-8-oracle" >> /etc/environment
-RUN echo '# /lib/init/fstab: cleared out for bare-bones lxc' > /lib/init/fstab
-RUN ln -sf /proc/self/mounts /etc/mtab
