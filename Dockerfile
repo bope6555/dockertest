@@ -127,5 +127,6 @@ RUN chown chromeuser /home/chromeuser/chrome
 RUN chgrp chromeuser /home/chromeuser/chrome
 #ADD ./scripts/ /home/root/scripts
 EXPOSE 4444 5999
-CMD ["sh", "/home/root/scripts/start.sh"]
+#CMD ["sh", "/home/root/scripts/start.sh"]
 
+CMD /bin/riak start && tail -f /var/log/riak/erlang.log.1
